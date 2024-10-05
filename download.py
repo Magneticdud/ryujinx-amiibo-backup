@@ -1,8 +1,16 @@
 import requests
 import json
+import os
 
 def download_and_save_json(url, filename):
     try:
+        # Check if the file already exists
+        if os.path.exists(filename):
+            overwrite = input(f"The file '{filename}' already exists. Do you want to overwrite it? (y/n): ").lower()
+            if overwrite != 'y':
+                print("Download cancelled. Existing file was not overwritten.")
+                return
+
         # Send a GET request to the URL
         response = requests.get(url)
         
